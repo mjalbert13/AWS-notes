@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/mjalbert13/left-hook-react/issues"
   },
-  "homepage": "https://github.com/mjalbert13/left-hook-react#readme"
+  "homepage": "https://github.com/mjalbert13/left-hook-react#readme",
+  "devDependencies": {
+    "serverless-dotenv-plugin": "^2.1.1"
+  }
 }
