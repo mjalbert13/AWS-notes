@@ -10,7 +10,7 @@ export async function main(event, context) {
     // - 'noteId': path parameter
     Key: {
       userId: event.requestContext.identity.cognitoIdentityId,
-      noteId: event.pathParameters.id
+      notesId: event.pathParameters.id
     },
     // 'UpdateExpression' defines the attributes to be updated
     // 'ExpressionAttributeValues' defines the value in the update expression
@@ -29,6 +29,7 @@ export async function main(event, context) {
     await dynamoDbLib.call("update", params);
     return success({ status: true });
   } catch (e) {
+    console.log(e);
     return failure({ status: false });
   }
 }

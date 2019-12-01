@@ -9,7 +9,7 @@ export async function main(event, context) {
     // - 'noteId': path parameter
     Key: {
       userId: event.requestContext.identity.cognitoIdentityId,
-      noteId: event.pathParameters.id
+      notesId: event.pathParameters.id
     }
   };
 
@@ -22,6 +22,7 @@ export async function main(event, context) {
       return failure({ status: false, error: "Item not found." });
     }
   } catch (e) {
+    console.log(e);
     return failure({ status: false });
   }
 }
