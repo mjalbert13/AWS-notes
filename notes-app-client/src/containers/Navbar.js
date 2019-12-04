@@ -1,12 +1,20 @@
 import React, {Fragment} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
+import { Auth } from 'aws-amplify';
+ 
 
+export default function Navbar({ appProps:{isAuthenticated, userHasAuthenticated}}) {
 
-export default function Navbar({ appProps:{isAuthenticated}}) {
+    async function handleLogout() {
+        await Auth.signOut();
+      
+        userHasAuthenticated(false);
+        
+    }
 
     const authLinks = (
         <ul>
-            <li><button className='btn btn-danger'>Logout</button></li>
+            <li><button className='btn btn-danger' onClick={handleLogout}>Logout</button></li>
         </ul>
     )
 
