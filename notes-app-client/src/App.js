@@ -1,19 +1,23 @@
-import React, {Fragment} from "react";
+import React, {useState,Fragment} from "react";
 import { Switch, Route } from "react-router-dom";
 import Navbar from './containers/Navbar';
 import Home from './containers/Home';
-import Routes from './routes/Routes';
+import Routes from './Routes';
 import "./App.css";
 
-function App(props) {
+const  App = () =>{
+
+  const [isAuthenticated, userHasAuthenticated] = useState(false);
+
+  
+
   return (
     <div >
       <Fragment>
-        <Navbar />
+        <Navbar appProps={{ isAuthenticated, userHasAuthenticated }} />
         <div className='container'>
         <Switch>
-          <Route exact path='/' component={Home} />
-          <Route component={Routes} /> 
+          <Routes appProps={{ isAuthenticated, userHasAuthenticated }} />
         </Switch>
         </div>
       </Fragment>
