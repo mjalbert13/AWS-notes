@@ -1,20 +1,19 @@
-import React, {useState, useEffect, Fragment} from "react";
-import { Switch, withRouter } from "react-router-dom";
-import {Auth} from 'aws-amplify';
-import Navbar from './containers/Navbar';
-import Home from './containers/Home';
-import Routes from './Routes';
+import React, { useState, useEffect } from "react";
+import { Auth } from "aws-amplify";
+import { Link, withRouter } from "react-router-dom";
+import { Nav, Navbar, NavItem } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
+import Routes from "./Routes";
 import "./App.css";
 
-const  App = () =>{
-
+function App(props) {
   const [isAuthenticating, setIsAuthenticating] = useState(true);
   const [isAuthenticated, userHasAuthenticated] = useState(false);
 
   useEffect(() => {
     onLoad();
   }, []);
-  
+
   async function onLoad() {
     try {
       await Auth.currentSession();
@@ -25,24 +24,53 @@ const  App = () =>{
         alert(e);
       }
     }
-  
+
     setIsAuthenticating(false);
   }
 
-  
+  async function handleLogout() {
+    await Auth.signOut();
+
+    userHasAuthenticated(false);
+
+    props.history.push("/login");
+  }
 
   return (
-    !isAuthenticating &&
-    <div >
-      <Fragment>
-        <Navbar appProps={{ isAuthenticated, userHasAuthenticated }} />
-        <div className='container'>
-        <Switch>
-          <Routes appProps={{ isAuthenticated, userHasAuthenticated }} />
-        </Switch>
-        </div>
-      </Fragment>
-    </div>
+    !isAuthenticating && (
+      <div className="App container">
+        <Navbar fluid collapseOnSelect>
+          <Navbar.Header>
+            <Navbar.Brand>
+              <Link to="/">Scratch</Link>
+            </Navbar.Brand>
+            <Navbar.Toggle />
+          </Navbar.Header>
+          <Navbar.Collapse>
+            <Nav pullRight>
+              {isAuthenticated ? (
+                <>
+                  <LinkContainer to="/settings">
+                    <NavItem>Settings</NavItem>
+                  </LinkContainer>
+                  <NavItem onClick={handleLogout}>Logout</NavItem>
+                </>
+              ) : (
+                <>
+                  <LinkContainer to="/signup">
+                    <NavItem>Signup</NavItem>
+                  </LinkContainer>
+                  <LinkContainer to="/login">
+                    <NavItem>Login</NavItem>
+                  </LinkContainer>
+                </>
+              )}
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
+        <Routes appProps={{ isAuthenticated, userHasAuthenticated }} />
+      </div>
+    )
   );
 }
 

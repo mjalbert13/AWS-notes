@@ -1,4 +1,6 @@
 export default {
+    STRIPE_KEY: 'pk_test_fntA0QEDRcT70m4jAuHt67Xh00ZzdoB2Pn',
+    MAX_ATTACHMENT_SIZE: 5000000,
     s3: {
       REGION: "us-east-2",
       BUCKET: "matts-bucket-test1"
@@ -13,4 +15,4 @@ export default {
       APP_CLIENT_ID: "42kl8b7onjcup2ffbrpl8u47mf",
       IDENTITY_POOL_ID: "us-east-2:e6f6c8bc-0508-4957-9aa1-18358a513673"
     }
-  };
+};

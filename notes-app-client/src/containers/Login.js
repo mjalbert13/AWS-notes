@@ -1,67 +1,65 @@
-import React,{ useState } from 'react';
-import { Redirect } from 'react-router-dom'
-import { Auth } from 'aws-amplify'; 
+import React, { useState } from "react";
+import { Auth } from "aws-amplify";
+import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
+import LoaderButton from "../components/LoaderButton";
+import { useFormFields } from "../libs/hookLib";
+import "./Login.css";
 
-export default function Login (props) {
+export default function Login(props) {
+  const [isLoading, setIsLoading] = useState(false);
+  const [fields, handleFieldChange] = useFormFields({
+    email: "",
+    password: ""
+  });
 
-    const [formData, setFormData] = useState({
-        email:'',
-        password:'',
-    })
+  function validateForm() {
+    return fields.email.length > 0 && fields.password.length > 0;
+  }
 
-    const [isLoading, setIsLoading] = useState(false);
-
-    const {  email, password} = formData;
-
-    const onChange = e=> setFormData({ ...formData,[e.target.name]: e.target.value })
-
-    function validateForm() {
-        return email.length > 0 && password.length > 0;
-      }
-    
-    async function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-    
-    setIsLoading(true);
-    
-    try {
-        await Auth.signIn(email, password);
-        props.userHasAuthenticated(true);
-        
-    } catch (e) {
-        alert(e.message);
-        setIsLoading(false);
-    }
-    }
 
-    if(props.isAuthenticated){
-    return <Redirect to='/' />
+    setIsLoading(true);
+
+    try {
+      await Auth.signIn(fields.email, fields.password);
+      props.userHasAuthenticated(true);
+    } catch (e) {
+      alert(e.message);
+      setIsLoading(false);
     }
-    return (
-        <div>
-            <h1>Login</h1>
-            <form className='form' onSubmit={handleSubmit}> 
-                <div className='form-group'>
-                    <label>Email</label>
-                    <input
-                        type='email'
-                        placeholder='joe@gmail.com'
-                        name='email'
-                        value={email}
-                        onChange={e=> onChange(e)}
-                    />
-                </div>
-                <div className='form-group'>
-                    <label>Password</label>
-                    <input 
-                        type='password'
-                        name='password'
-                        value={password}
-                        onChange={e=> onChange(e)}
-                    />
-                </div>
-                <button type='submit' disabled={!validateForm()} className='btn btn-primary'>Login</button>
-            </form>
-        </div>
-    )
+  }
+
+  return (
+    <div className="Login">
+      <form onSubmit={handleSubmit}>
+        <FormGroup controlId="email" bsSize="large">
+          <ControlLabel>Email</ControlLabel>
+          <FormControl
+            autoFocus
+            type="email"
+            value={fields.email}
+            onChange={handleFieldChange}
+          />
+        </FormGroup>
+        <FormGroup controlId="password" bsSize="large">
+          <ControlLabel>Password</ControlLabel>
+          <FormControl
+            type="password"
+            value={fields.password}
+            onChange={handleFieldChange}
+          />
+        </FormGroup>
+        <LoaderButton
+          block
+          type="submit"
+          bsSize="large"
+          isLoading={isLoading}
+          disabled={!validateForm()}
+        >
+          Login
+        </LoaderButton>
+      </form>
+    </div>
+  );
 }
