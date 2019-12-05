@@ -123,6 +123,7 @@ export default function Signup(props) {
         </FormGroup>
         <LoaderButton
           block
+          className='button'
           type="submit"
           bsSize="large"
           isLoading={isLoading}

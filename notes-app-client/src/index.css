@@ -16,6 +16,9 @@ body {
   color: #333;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #f0eb84;
+  background-image: url("https://www.transparenttextures.com/patterns/notebook-dark.png");
+/* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
 }
 
 h1, h2, h3, h4, h5, h6 {

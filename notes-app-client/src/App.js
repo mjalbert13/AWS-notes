@@ -39,7 +39,7 @@ function App(props) {
   return (
     !isAuthenticating && (
       <div className="App container">
-        <Navbar fluid collapseOnSelect className='bg-dark'>
+        <Navbar fluid collapseOnSelect className='navbar'>
           <Navbar.Header>
             <Navbar.Brand>
               <Link to="/">Scratch</Link>
@@ -51,17 +51,17 @@ function App(props) {
               {isAuthenticated ? (
                 <>
                   <LinkContainer to="/settings">
-                    <NavItem>Settings</NavItem>
+                    <NavItem className='item'>Settings</NavItem>
                   </LinkContainer>
-                  <NavItem onClick={handleLogout}>Logout</NavItem>
+                  <NavItem onClick={handleLogout} className='item'>Logout</NavItem>
                 </>
               ) : (
                 <>
                   <LinkContainer to="/signup">
-                    <NavItem>Signup</NavItem>
+                    <NavItem className='item'>Signup</NavItem>
                   </LinkContainer>
                   <LinkContainer to="/login">
-                    <NavItem>Login</NavItem>
+                    <NavItem className='item'>Login</NavItem>
                   </LinkContainer>
                 </>
               )}
