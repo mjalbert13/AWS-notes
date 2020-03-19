@@ -1,5 +1,5 @@
-# left-hook-react
-Left Hook apprentice assignment 
+# AWS Serverless Stack Notes app
+Create a serverless framework app that lets users create notes and charge them for storeing notes.
 
 # What did you learn in the process of doing this tutorial?
  - I learned a lot about AWS and how to create very user friendly authentication systems. I liked how you had a control panel that lets you mange your users. I learned how to set up a serverless stack and create Lamda functions to interact with AWS. I think this was really interesting and In the three days I had time to work on this went from zero expience with Serverless to comfortable enough to try to expand this project says a lot.
